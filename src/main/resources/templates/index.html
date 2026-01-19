@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Dao Nguyen" />
+    <title>RE Shopping Cart</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/cart.css}" />
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header class="intro text-center">
+      <h3>Chào mừng các bạn đến với RE Shop</h3>
+      <p>Chúc các bạn có trải nghiệm mua sắm vui vẻ ^.^</p>
+    </header>
+
+    <!-- MAIN -->
+    <main class="container">
+      <div class="row">
+        <!-- PRODUCTS -->
+        <div class="col-lg-6">
+          <div th:replace="fragments/products :: productList"></div>
+        </div>
+
+        <!-- CART -->
+        <div class="col-lg-6">
+          <div th:replace="fragments/cart :: cartView"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="shop-info text-center mt-4">
+      Website: RE Shop - Develop By:
+      <a
+        href="https://www.facebook.com/daonguyendev/"
+        target="_blank"
+        title="Dao Nguyen"
+      >
+        Đạo Nguyễn
+      </a>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div th:fragment="cartView">
+      <h4 class="badge-pill badge-light mt-3 mb-3 p-2 text-center">
+        Giỏ hàng
+      </h4>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Sản phẩm</th>
+            <th>SL</th>
+            <th>Thành tiền</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr th:each="item : ${cartItems}">
+            <td th:text="${item.product.name}"></td>
+
+            <td th:text="${item.quantity}"></td>
+
+            <td
+              th:text="${#numbers.formatDecimal(
+                item.product.price * item.quantity,
+                0,'COMMA',0,'POINT'
+              )} + ' VNĐ'"
+            ></td>
+
+            <td>
+              <!-- TĂNG SỐ LƯỢNG -->
+              <form
+                th:action="@{/cart/item/{id}/increase(id=${item.id})}"
+                method="post"
+                style="display:inline"
+              >
+                <input type="hidden" name="cartId" th:value="${cartId}" />
+                <button class="btn btn-sm btn-success">+</button>
+              </form>
+
+              <!-- GIẢM SỐ LƯỢNG -->
+              <form
+                th:action="@{/cart/item/{id}/decrease(id=${item.id})}"
+                method="post"
+                style="display:inline"
+              >
+                <input type="hidden" name="cartId" th:value="${cartId}" />
+                <button class="btn btn-sm btn-warning">-</button>
+              </form>
+
+              <!-- XÓA SẢN PHẨM -->
+              <form
+                th:action="@{/cart/item/{id}/remove(id=${item.id})}"
+                method="post"
+                style="display:inline"
+              >
+                <input type="hidden" name="cartId" th:value="${cartId}" />
+                <button class="btn btn-sm btn-danger">x</button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- TỔNG TIỀN GIỎ HÀNG -->
+      <p class="text-right font-weight-bold">
+        Tổng tiền:
+        <span
+          th:text="${#numbers.formatDecimal(totalAmount,0,'COMMA',0,'POINT')} + ' VNĐ'"
+        ></span>
+      </p>
+
+      <!-- XÓA TOÀN BỘ GIỎ HÀNG -->
+      <form th:action="@{/cart/{id}/clear(id=${cartId})}" method="post">
+        <button class="btn btn-outline-danger btn-sm">
+          Xóa toàn bộ giỏ hàng
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <body>
+    <div th:fragment="productList">
+      <h4 class="badge-pill badge-light mt-3 mb-3 p-2 text-center">
+        Danh sách sản phẩm
+      </h4>
+
+      <div class="row">
+        <div class="col-sm-6 mb-3" th:each="product : ${products}">
+          <div class="shadow-sm card product">
+            <img
+              class="product-img"
+              th:src="@{/img/{file}(file=${product.imageUrl})}"
+              alt="product"
+            />
+
+            <div class="card-body">
+              <h5
+                class="card-title text-info"
+                th:text="${product.name}"
+              ></h5>
+
+              <p
+                class="card-text text-success"
+                th:text="${#numbers.formatDecimal(product.price,0,'COMMA',0,'POINT')} + ' VNĐ'"
+              ></p>
+
+              <form
+                th:action="@{/cart/{cartId}/add/{productId}(
+                    cartId=${cartId},
+                    productId=${product.id}
+                )}"
+                method="post"
+              >
+                <button
+                  type="submit"
+                  class="btn badge badge-pill badge-secondary float-right"
+                >
+                  Thêm vào giỏ hàng
+                </button>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
