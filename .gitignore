@@ -38,5 +38,8 @@ out/
 
 ### Environment files ###
 .env
+# Ignore private key and config with secrets
+re-shopping-card-key-pair.pem
+src/main/resources/application.yaml
 .env.prod
 .env.local
